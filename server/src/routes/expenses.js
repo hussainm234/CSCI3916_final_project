@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
 const Category = require('../models/Category');
-const ExchangeRateLog = require('../models/ExchangeRateLog');
+const ExchangeRateLog = require('../models/Exchangeratelog');
 const protect = require('../middleware/auth');
 require('dotenv').config();
 
