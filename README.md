@@ -15,3 +15,5 @@ Database: The database will contain:
 A Categories collection with category name, monthly budget limit, and user reference
 An Expenses collection with amount, original currency, converted amount, exchange rate used, category, date, and optional note
 An Exchange Rate Log collection with base currency, target currency, rate, and timestamp to cache lookups and reduce redundant API calls
+
+backend hosting render link: https://csci3916-final-project.onrender.com
