@@ -21,6 +21,15 @@ async function startServer() {
 		if (MONGODB_URI) {
 			await mongoose.connect(MONGODB_URI);
 			console.log('MongoDB connected.');
+
+			// Drop the stale global unique index on categories.name if it exists.
+			// The correct per-user compound index (name_1_user_1) handles uniqueness instead.
+			try {
+				await mongoose.connection.collection('categories').dropIndex('name_1');
+				console.log('Dropped stale categories name_1 index.');
+			} catch (e) {
+				// Index doesn't exist — nothing to do
+			}
 		} else {
 			console.warn('MONGODB_URI not set. Starting API without DB connection for now.');
 		}
