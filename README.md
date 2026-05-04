@@ -1,19 +1,64 @@
-"# CSCI3916_final_project"
+# CSCI3916_final_project
 
 Project Name: Budget Expense Tracker with Multi-Currency Support
 
 Team Members: Hossein Mohammadi, Mehar Sidhu
 
-High Level Concept: A personal finance web app where users log daily expenses by category, set monthly budget limits, and visualize spending through charts. Expenses can be logged in any currency and automatically converted to a home currency using a live exchange rate API.
+## Overview
 
-API: Create an Expense API that accepts expense submissions including amount, currency, and category. When a foreign currency is detected, the API will call ExchangeRate-API to convert the amount to the user's home currency and store both values. The API will also expose a reporting endpoint that compares monthly spending vs. budget limits per category, returning a warning flag if a budget is exceeded.
+Personal finance web app where users log expenses by category, set monthly budgets, and visualize spending. Expenses can be logged in any currency and are converted to the user's home currency using ExchangeRate-API. The repo contains a separate `server` (Express + MongoDB) and `client` (React) app.
 
-Front End: A simple dashboard displaying spending vs. budget per category using color-coded bar charts (green/yellow/red). Includes an expense entry form where users select a currency, enter an amount, and choose a category — the converted home-currency amount is shown in real time before submitting. A settings panel allows users to set their home currency and monthly budget limits per category.
+Live demo (hosted):
 
-Database: The database will contain:
+- Backend: https://csci3916-final-project.onrender.com
+- Frontend: https://csci3916-final-project-ihtf.onrender.com
 
-A Categories collection with category name, monthly budget limit, and user reference
-An Expenses collection with amount, original currency, converted amount, exchange rate used, category, date, and optional note
-An Exchange Rate Log collection with base currency, target currency, rate, and timestamp to cache lookups and reduce redundant API calls
+## Prerequisites
 
-backend hosting render link: https://csci3916-final-project.onrender.com
+- Node.js (v16+ recommended) and `npm` or `yarn`
+- A MongoDB instance (local or cloud) and its connection URI
+- An ExchangeRate-API key
+
+## Environment variables
+
+Create a `.env` file for the server ( in `server/`). Key variables used by the project:
+
+- `MONGODB_URI` or `MONGO_URI` — MongoDB connection string
+- `JWT_SECRET` — secret used to sign JWT tokens
+- `EXCHANGE_RATE_API_KEY` — API key for ExchangeRate-API
+- `PORT` — optional, default 5000
+
+For the client, you can set:
+
+- `REACT_APP_API_URL` — base API URL (defaults to `http://localhost:5000/api`)
+
+## Run locally (development)
+
+1. Install server deps and run server
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+The server exposes the API under `/api` (default `http://localhost:5000/api`). A health check is available at `/`.
+
+2. Install client deps and run client
+
+```bash
+cd ../client
+npm install
+npm start
+```
+
+The React app will run on `http://localhost:3000` by default and talk to the server API.
+
+## Run for production / build
+
+1. Build the client
+
+```bash
+cd client
+npm run build
+```
